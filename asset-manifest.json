@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/react-boodschapp/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/react-boodschapp/static/js/main.e9a8916d.chunk.js",
+    "main.js.map": "/react-boodschapp/static/js/main.e9a8916d.chunk.js.map",
+    "runtime-main.js": "/react-boodschapp/static/js/runtime-main.2fbe366a.js",
+    "runtime-main.js.map": "/react-boodschapp/static/js/runtime-main.2fbe366a.js.map",
+    "static/js/2.adc51c71.chunk.js": "/react-boodschapp/static/js/2.adc51c71.chunk.js",
+    "static/js/2.adc51c71.chunk.js.map": "/react-boodschapp/static/js/2.adc51c71.chunk.js.map",
+    "static/js/3.b2a7ecab.chunk.js": "/react-boodschapp/static/js/3.b2a7ecab.chunk.js",
+    "static/js/3.b2a7ecab.chunk.js.map": "/react-boodschapp/static/js/3.b2a7ecab.chunk.js.map",
+    "index.html": "/react-boodschapp/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/react-boodschapp/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.adc51c71.chunk.js.LICENSE.txt": "/react-boodschapp/static/js/2.adc51c71.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2fbe366a.js",
+    "static/js/2.adc51c71.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.e9a8916d.chunk.js"
+  ]
+}
