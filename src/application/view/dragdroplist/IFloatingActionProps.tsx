@@ -1,3 +1,3 @@
 export interface FloatingActionProps {
-    onClick(): any;
+    onClick(): void;
 }

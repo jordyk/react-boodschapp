@@ -1,14 +1,14 @@
-import { AppBar, createStyles, IconButton, Theme } from "@material-ui/core";
+import { AppBar, createStyles, IconButton, Theme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from "@material-ui/core/Typography";
+import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import React from 'react';
-import { IDialogProps } from "./IDialogProps";
+import { IDialogProps } from './IDialogProps';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -22,27 +22,27 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function FormDialog(Props: IDialogProps) {
+export default function FormDialog(Props: IDialogProps): JSX.Element {
     const classes = useStyles();
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         switch (e.target.name) {
-            case 'name':
-                Props.form.name = e.target.value;
-                break;
-            case 'amount':
-                Props.form.amount = parseInt(e.target.value);
-                break;
+        case 'name':
+            Props.form.name = e.target.value;
+            break;
+        case 'amount':
+            Props.form.amount = parseInt(e.target.value);
+            break;
         }
-    }
+    };
 
     const onSubmit = (): void => {
         Props.handler({
             name: Props.form.name,
             amount: Props.form.amount,
             checked: false
-        })
-    }
+        });
+    };
 
     return (
         <Dialog fullScreen open={Props.open} onClose={Props.onClose} aria-labelledby="add-to-list">

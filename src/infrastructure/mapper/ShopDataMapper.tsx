@@ -1,4 +1,4 @@
-import { IShopData } from "../../domain/IShopData";
+import { IShopData } from '../../domain/IShopData';
 
 export function create(name: string, amount: number, checked: boolean): IShopData {
     return { name, amount, checked };

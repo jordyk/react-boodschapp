@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IShopData } from "../../domain/IShopData";
+import { IShopData } from '../../domain/IShopData';
 
 export interface IDialogProps {
     open: boolean;

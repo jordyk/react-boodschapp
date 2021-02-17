@@ -6,25 +6,27 @@ import {
     ListItemIcon,
     ListItemSecondaryAction,
     ListItemText
-} from "@material-ui/core";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import DeleteIcon from "@material-ui/icons/Delete";
-import React from "react";
+} from '@material-ui/core';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import DeleteIcon from '@material-ui/icons/Delete';
+import React from 'react';
 import {
     DragDropContext,
     Draggable,
     DraggableProvided,
     DraggableStateSnapshot,
+    DraggingStyle,
     Droppable,
     DroppableProvided,
-    DroppableStateSnapshot
-} from "react-beautiful-dnd";
-import FloatingActionButton from "./FloatingActionButton";
-import { IDragDropProps } from "./IDragDropProps";
+    DroppableStateSnapshot,
+    NotDraggingStyle
+} from 'react-beautiful-dnd';
+import FloatingActionButton from './FloatingActionButton';
+import { IDragDropProps } from './IDragDropProps';
 
-export default function DragDropList(Props: IDragDropProps) {
-    const getItemStyle = (draggableStyle: any, isDragging: boolean, isChecked: boolean): {} => ({
+export default function DragDropList(Props: IDragDropProps): JSX.Element {
+    const getItemStyle = (draggableStyle: DraggingStyle | NotDraggingStyle | undefined, isDragging: boolean, isChecked: boolean): React.CSSProperties => ({
         userSelect: 'none',
         background: isDragging ? 'lightgrey' : 'white',
         borderBottom: '1px solid #e8e8e8',
@@ -33,7 +35,7 @@ export default function DragDropList(Props: IDragDropProps) {
         ...draggableStyle
     });
 
-    const getListStyle = (isDraggingOver: boolean): {} => ({
+    const getListStyle = (isDraggingOver: boolean): React.CSSProperties => ({
         background: isDraggingOver ? 'lightblue' : 'white'
     });
 
@@ -74,7 +76,7 @@ export default function DragDropList(Props: IDragDropProps) {
                                             </ListItemIcon>
                                             <ListItemText
                                                 primary={item.name}
-                                                secondary={"Quantity: " + item.amount}
+                                                secondary={'Quantity: ' + item.amount}
                                             />
                                             <ListItemSecondaryAction>
                                                 <IconButton
@@ -87,7 +89,7 @@ export default function DragDropList(Props: IDragDropProps) {
                                         </ListItem>
                                     )}
                                 </Draggable>
-                            )
+                            );
                         })}
                         {provided.placeholder}
                     </List>

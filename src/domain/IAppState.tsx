@@ -1,4 +1,4 @@
-import { IShopData } from "./IShopData";
+import { IShopData } from './IShopData';
 
 export interface IAppState {
     items: IShopData[];

@@ -1,16 +1,16 @@
 import React from 'react';
-import { DropResult } from "react-beautiful-dnd";
+import { DropResult } from 'react-beautiful-dnd';
 import './App.css';
-import FormDialog from "./application/form/FormDialog";
-import BasicAppBar from "./application/view/components/BasicAppBar";
-import DragDropList from "./application/view/dragdroplist/DragDropList";
-import { IAppState } from "./domain/IAppState";
-import { IShopData } from "./domain/IShopData";
-import { create, reorder } from "./infrastructure/mapper/ShopDataMapper";
+import FormDialog from './application/form/FormDialog';
+import BasicAppBar from './application/view/components/BasicAppBar';
+import DragDropList from './application/view/dragdroplist/DragDropList';
+import { IAppState } from './domain/IAppState';
+import { IShopData } from './domain/IShopData';
+import { create, reorder } from './infrastructure/mapper/ShopDataMapper';
 
-export default class App extends React.Component<{}, IAppState> {
-    constructor(props: any) {
-        super(props);
+export default class App extends React.Component<unknown, IAppState> {
+    constructor(Props: unknown) {
+        super(Props);
 
         this.state = {
             items: [
@@ -42,9 +42,9 @@ export default class App extends React.Component<{}, IAppState> {
         this.setState({ open: true });
     }
 
-    public render() {
+    public render(): JSX.Element {
         const handleToggle = (index: number) => () => {
-            const newChecked = [ ...this.state.items ]
+            const newChecked = [ ...this.state.items ];
             newChecked[index].checked = !newChecked[index].checked;
             const items = reorder(newChecked, index, newChecked[index].checked ? (newChecked.length - 1) : index);
 
@@ -55,7 +55,7 @@ export default class App extends React.Component<{}, IAppState> {
             this.state.items.splice(index, 1);
 
             this.setState({ ...this.state });
-        }
+        };
 
         const handleAddition = (item: IShopData): void => {
             const items = reorder(
@@ -65,7 +65,7 @@ export default class App extends React.Component<{}, IAppState> {
             );
 
             this.setState({ ...this.state, items, open: false });
-        }
+        };
 
         return (
             <div className="App">
@@ -74,7 +74,7 @@ export default class App extends React.Component<{}, IAppState> {
                     open={this.state.open}
                     onClose={() => this.setState({ open: false })}
                     handler={handleAddition}
-                    form={{ name: "", amount: 1 }}
+                    form={{ name: '', amount: 1 }}
                 />
                 <DragDropList
                     items={this.state.items}
@@ -85,5 +85,5 @@ export default class App extends React.Component<{}, IAppState> {
                 />
             </div>
         );
-    };
-};
+    }
+}
