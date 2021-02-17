@@ -12,7 +12,16 @@ export default class App extends React.Component<{}, IAppState> {
     constructor(props: any) {
         super(props);
 
-        this.state = { items: [], open: false };
+        this.state = {
+            items: [
+                create('Frozen yoghurt', 1, false),
+                create('Ice cream sandwich', 3, false),
+                create('Eclair', 1, false),
+                create('Cupcake', 1, false),
+                create('Gingerbread', 2, false),
+            ],
+            open: false
+        };
 
         this.onDragEnd = this.onDragEnd.bind(this);
         this.onDialogOpen = this.onDialogOpen.bind(this);
