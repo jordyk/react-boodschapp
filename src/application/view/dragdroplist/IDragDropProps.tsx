@@ -1,5 +1,5 @@
 import { DropResult, ResponderProvided } from "react-beautiful-dnd";
-import { IShopData } from "./IShopData";
+import { IShopData } from "../../../domain/IShopData";
 
 export interface IDragDropProps {
     onDragEnd(result: DropResult, provided: ResponderProvided): void;

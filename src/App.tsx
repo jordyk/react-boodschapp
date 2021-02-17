@@ -1,23 +1,12 @@
 import React from 'react';
 import { DropResult } from "react-beautiful-dnd";
 import './App.css';
-import BasicAppBar from "./components/BasicAppBar";
-import DragDropList from "./components/DragDropList";
-import FormDialog from "./components/FormDialog";
-import { IAppState } from "./interfaces/IAppState";
-import { IShopData } from "./interfaces/IShopData";
-
-function createData(name: string, amount: number, checked: boolean): IShopData {
-    return { name, amount, checked };
-}
-
-const reorder = (list: IShopData[], startIndex: number, endIndex: number): IShopData[] => {
-    const result = [ ...list ];
-    const [ removed ] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-};
+import FormDialog from "./application/form/FormDialog";
+import BasicAppBar from "./application/view/components/BasicAppBar";
+import DragDropList from "./application/view/dragdroplist/DragDropList";
+import { IAppState } from "./domain/IAppState";
+import { IShopData } from "./domain/IShopData";
+import { create, reorder } from "./infrastructure/mapper/ShopDataMapper";
 
 export default class App extends React.Component<{}, IAppState> {
     constructor(props: any) {
@@ -61,7 +50,7 @@ export default class App extends React.Component<{}, IAppState> {
 
         const handleAddition = (item: IShopData): void => {
             const items = reorder(
-                [ ...this.state.items, createData(item.name, item.amount, item.checked) ],
+                [ ...this.state.items, create(item.name, item.amount, item.checked) ],
                 this.state.items.length,
                 0
             );
@@ -72,16 +61,18 @@ export default class App extends React.Component<{}, IAppState> {
         return (
             <div className="App">
                 <BasicAppBar/>
-                <FormDialog open={this.state.open}
-                            onClose={() => this.setState({ open: false })}
-                            handler={handleAddition}
-                            form={{ name: "", amount: 1 }}
+                <FormDialog
+                    open={this.state.open}
+                    onClose={() => this.setState({ open: false })}
+                    handler={handleAddition}
+                    form={{ name: "", amount: 1 }}
                 />
-                <DragDropList items={this.state.items}
-                              onDragEnd={this.onDragEnd}
-                              onDialogOpen={this.onDialogOpen}
-                              onItemToggle={handleToggle}
-                              onItemRemove={handleRemove}
+                <DragDropList
+                    items={this.state.items}
+                    onDragEnd={this.onDragEnd}
+                    onDialogOpen={this.onDialogOpen}
+                    onItemToggle={handleToggle}
+                    onItemRemove={handleRemove}
                 />
             </div>
         );

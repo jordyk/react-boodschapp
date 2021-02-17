@@ -10,7 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React from 'react';
-import { IShopData } from "../interfaces/IShopData";
+import { IShopData } from "../../../domain/IShopData";
 
 function createData(name: string, amount: number, checked: boolean): IShopData {
     return { name, amount, checked };

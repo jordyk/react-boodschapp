@@ -15,12 +15,13 @@ import React from "react";
 import {
     DragDropContext,
     Draggable,
-    DraggableProvided, DraggableStateSnapshot,
+    DraggableProvided,
+    DraggableStateSnapshot,
     Droppable,
     DroppableProvided,
     DroppableStateSnapshot
 } from "react-beautiful-dnd";
-import { IDragDropProps } from "../interfaces/IDragDropProps";
+import { IDragDropProps } from "./IDragDropProps";
 
 export default function DragDropList(Props: IDragDropProps) {
     const getItemStyle = (draggableStyle: any, isDragging: boolean, isChecked: boolean): {} => ({
