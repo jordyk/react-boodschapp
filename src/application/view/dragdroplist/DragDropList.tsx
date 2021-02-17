@@ -7,7 +7,6 @@ import {
     ListItemSecondaryAction,
     ListItemText
 } from "@material-ui/core";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -21,12 +20,14 @@ import {
     DroppableProvided,
     DroppableStateSnapshot
 } from "react-beautiful-dnd";
+import FloatingActionButton from "./FloatingActionButton";
 import { IDragDropProps } from "./IDragDropProps";
 
 export default function DragDropList(Props: IDragDropProps) {
     const getItemStyle = (draggableStyle: any, isDragging: boolean, isChecked: boolean): {} => ({
         userSelect: 'none',
         background: isDragging ? 'lightgrey' : 'white',
+        borderBottom: '1px solid #e8e8e8',
         opacity: isChecked ? '0.4' : '1.0',
         textDecorationLine: isChecked ? 'line-through' : 'none',
         ...draggableStyle
@@ -73,12 +74,11 @@ export default function DragDropList(Props: IDragDropProps) {
                                             </ListItemIcon>
                                             <ListItemText
                                                 primary={item.name}
-                                                secondary={"Qty: " + item.amount}
+                                                secondary={"Quantity: " + item.amount}
                                             />
                                             <ListItemSecondaryAction>
                                                 <IconButton
                                                     aria-label="delete"
-                                                    size="small"
                                                     onClick={Props.onItemRemove(index)}
                                                 >
                                                     <DeleteIcon fontSize="inherit"/>
@@ -93,12 +93,7 @@ export default function DragDropList(Props: IDragDropProps) {
                     </List>
                 )}
             </Droppable>
-            <IconButton
-                aria-label="add"
-                onClick={Props.onDialogOpen}
-            >
-                <AddShoppingCartIcon fontSize="large"/>
-            </IconButton>
+            <FloatingActionButton onClick={Props.onDialogOpen} />
         </DragDropContext>
     );
 }

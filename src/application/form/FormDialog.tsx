@@ -70,7 +70,7 @@ export default function FormDialog(Props: IDialogProps) {
                 />
                 <TextField
                     name="amount"
-                    label="Qty"
+                    label="Quantity"
                     type="number"
                     onChange={onChange}
                     fullWidth
