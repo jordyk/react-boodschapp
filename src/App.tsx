@@ -1,29 +1,8 @@
-import {
-    Checkbox,
-    IconButton,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemSecondaryAction,
-    ListItemText
-} from "@material-ui/core";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import DeleteIcon from "@material-ui/icons/Delete";
 import React from 'react';
-import {
-    DragDropContext,
-    Draggable,
-    DraggableProvided,
-    DraggableStateSnapshot,
-    Droppable,
-    DroppableProvided,
-    DroppableStateSnapshot,
-    DropResult
-} from "react-beautiful-dnd";
+import { DropResult } from "react-beautiful-dnd";
 import './App.css';
 import BasicAppBar from "./components/BasicAppBar";
+import DragDropList from "./components/DragDropList";
 import FormDialog from "./components/FormDialog";
 import { IAppState } from "./interfaces/IAppState";
 import { IShopData } from "./interfaces/IShopData";
@@ -31,18 +10,6 @@ import { IShopData } from "./interfaces/IShopData";
 function createData(name: string, amount: number, checked: boolean): IShopData {
     return { name, amount, checked };
 }
-
-const getItemStyle = (draggableStyle: any, isDragging: boolean, isChecked: boolean): {} => ({
-    userSelect: 'none',
-    background: isDragging ? 'lightgrey' : 'white',
-    opacity: isChecked ? '0.4' : '1.0',
-    textDecorationLine: isChecked ? 'line-through' : 'none',
-    ...draggableStyle
-});
-
-const getListStyle = (isDraggingOver: boolean): {} => ({
-    background: isDraggingOver ? 'lightblue' : 'white'
-});
 
 const reorder = (list: IShopData[], startIndex: number, endIndex: number): IShopData[] => {
     const result = [ ...list ];
@@ -110,69 +77,12 @@ export default class App extends React.Component<{}, IAppState> {
                             handler={handleAddition}
                             form={{ name: "", amount: 1 }}
                 />
-                <DragDropContext onDragEnd={this.onDragEnd}>
-                    <Droppable droppableId="droppable">
-                        {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
-                            <List
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
-                                style={getListStyle(snapshot.isDraggingOver)}
-                            >
-                                {this.state.items.map((item, index) => {
-                                    const labelId = `item-${index}`;
-
-                                    return (
-                                        <Draggable key={index} draggableId={labelId} index={index}>
-                                            {(providedDraggable: DraggableProvided, snapshotDraggable: DraggableStateSnapshot) => (
-                                                <ListItem
-                                                    ref={providedDraggable.innerRef}
-                                                    {...providedDraggable.draggableProps}
-                                                    {...providedDraggable.dragHandleProps}
-                                                    style={getItemStyle(
-                                                        providedDraggable.draggableProps.style,
-                                                        snapshotDraggable.isDragging,
-                                                        item.checked
-                                                    )}
-                                                    onClick={handleToggle(index)}
-                                                >
-                                                    <ListItemIcon>
-                                                        <Checkbox
-                                                            color="primary"
-                                                            icon={<CheckBoxOutlineBlankIcon/>}
-                                                            checkedIcon={<CheckBoxIcon/>}
-                                                            checked={item.checked}
-                                                            inputProps={{ 'aria-labelledby': labelId }}
-                                                        />
-                                                    </ListItemIcon>
-                                                    <ListItemText
-                                                        primary={item.name}
-                                                        secondary={"Qty: " + item.amount}
-                                                    />
-                                                    <ListItemSecondaryAction>
-                                                        <IconButton
-                                                            aria-label="delete"
-                                                            size="small"
-                                                            onClick={handleRemove(index)}
-                                                        >
-                                                            <DeleteIcon fontSize="inherit"/>
-                                                        </IconButton>
-                                                    </ListItemSecondaryAction>
-                                                </ListItem>
-                                            )}
-                                        </Draggable>
-                                    )
-                                })}
-                                {provided.placeholder}
-                            </List>
-                        )}
-                    </Droppable>
-                    <IconButton
-                        aria-label="add"
-                        onClick={this.onDialogOpen}
-                    >
-                        <AddShoppingCartIcon fontSize="large"/>
-                    </IconButton>
-                </DragDropContext>
+                <DragDropList items={this.state.items}
+                              onDragEnd={this.onDragEnd}
+                              onDialogOpen={this.onDialogOpen}
+                              onItemToggle={handleToggle}
+                              onItemRemove={handleRemove}
+                />
             </div>
         );
     };
