@@ -1,3 +1,4 @@
+import { Container } from '@material-ui/core';
 import React from 'react';
 import { DropResult } from 'react-beautiful-dnd';
 import './App.css';
@@ -20,7 +21,7 @@ export default class App extends React.Component<unknown, IAppState> {
                 create('Cupcake', 1, false),
                 create('Gingerbread', 2, false),
             ],
-            open: false
+            open: false,
         };
 
         this.onDragEnd = this.onDragEnd.bind(this);
@@ -54,14 +55,14 @@ export default class App extends React.Component<unknown, IAppState> {
         const handleRemove = (index: number) => () => {
             this.state.items.splice(index, 1);
 
-            this.setState({ ...this.state });
+            this.setState({ items: this.state.items });
         };
 
         const handleAddition = (item: IShopData): void => {
             const items = reorder(
                 [ ...this.state.items, create(item.name, item.amount, item.checked) ],
                 this.state.items.length,
-                0
+                0,
             );
 
             this.setState({ ...this.state, items, open: false });
@@ -76,13 +77,15 @@ export default class App extends React.Component<unknown, IAppState> {
                     handler={handleAddition}
                     form={{ name: '', amount: 1 }}
                 />
-                <DragDropList
-                    items={this.state.items}
-                    onDragEnd={this.onDragEnd}
-                    onDialogOpen={this.onDialogOpen}
-                    onItemToggle={handleToggle}
-                    onItemRemove={handleRemove}
-                />
+                <Container style={{ marginTop: 20 }} maxWidth={'md'}>
+                    <DragDropList
+                        items={this.state.items}
+                        onDragEnd={this.onDragEnd}
+                        onDialogOpen={this.onDialogOpen}
+                        onItemToggle={handleToggle}
+                        onItemRemove={handleRemove}
+                    />
+                </Container>
             </div>
         );
     }
