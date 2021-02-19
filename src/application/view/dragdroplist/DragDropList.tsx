@@ -63,7 +63,7 @@ export default function DragDropList(Props: IDragDropProps): JSX.Element {
                                                 snapshotDraggable.isDragging,
                                                 item.checked
                                             )}
-                                            onClick={Props.onItemToggle(index)}
+                                            onClick={Props.handleToggle(index)}
                                         >
                                             <ListItemIcon>
                                                 <Checkbox
@@ -81,7 +81,7 @@ export default function DragDropList(Props: IDragDropProps): JSX.Element {
                                             <ListItemSecondaryAction>
                                                 <IconButton
                                                     aria-label="delete"
-                                                    onClick={Props.onItemRemove(index)}
+                                                    onClick={Props.handleRemove(index)}
                                                 >
                                                     <DeleteIcon fontSize="inherit"/>
                                                 </IconButton>

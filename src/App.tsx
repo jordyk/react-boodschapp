@@ -7,7 +7,7 @@ import BasicAppBar from './application/view/components/BasicAppBar';
 import DragDropList from './application/view/dragdroplist/DragDropList';
 import { IAppState } from './domain/IAppState';
 import { IShopData } from './domain/IShopData';
-import { create, reorder } from './infrastructure/mapper/ShopDataMapper';
+import { create, remove, reorder, toggle } from './infrastructure/mapper/ShopDataMapper';
 
 export default class App extends React.Component<unknown, IAppState> {
     constructor(Props: unknown) {
@@ -24,11 +24,11 @@ export default class App extends React.Component<unknown, IAppState> {
             open: false,
         };
 
-        this.onDragEnd = this.onDragEnd.bind(this);
-        this.onDialogOpen = this.onDialogOpen.bind(this);
+        this.handleDragEnd = this.handleDragEnd.bind(this);
+        this.handleAddition = this.handleAddition.bind(this);
     }
 
-    public onDragEnd(result: DropResult): void {
+    public handleDragEnd(result: DropResult): void {
         // dropped outside the list
         if (!result.destination) {
             return;
@@ -39,33 +39,26 @@ export default class App extends React.Component<unknown, IAppState> {
         this.setState({ ...this.state, items });
     }
 
-    public onDialogOpen(): void {
-        this.setState({ open: true });
+    public handleAddition(item: IShopData): void {
+        const items = reorder(
+            [ ...this.state.items, create(item.name, item.amount, item.checked) ],
+            this.state.items.length,
+            0,
+        );
+
+        this.setState({ ...this.state, items, open: false });
     }
 
     public render(): JSX.Element {
         const handleToggle = (index: number) => () => {
-            const newChecked = [ ...this.state.items ];
-            newChecked[index].checked = !newChecked[index].checked;
+            const newChecked = toggle(this.state.items, index);
             const items = reorder(newChecked, index, newChecked[index].checked ? (newChecked.length - 1) : index);
 
             this.setState({ ...this.state, items });
         };
 
         const handleRemove = (index: number) => () => {
-            this.state.items.splice(index, 1);
-
-            this.setState({ items: this.state.items });
-        };
-
-        const handleAddition = (item: IShopData): void => {
-            const items = reorder(
-                [ ...this.state.items, create(item.name, item.amount, item.checked) ],
-                this.state.items.length,
-                0,
-            );
-
-            this.setState({ ...this.state, items, open: false });
+            this.setState({ items: remove(this.state.items, index) });
         };
 
         return (
@@ -74,16 +67,16 @@ export default class App extends React.Component<unknown, IAppState> {
                 <FormDialog
                     open={this.state.open}
                     onClose={() => this.setState({ open: false })}
-                    handler={handleAddition}
-                    form={{ name: '', amount: 1 }}
+                    handleAddition={this.handleAddition}
+                    formData={{ name: '', amount: 1 }}
                 />
                 <Container style={{ marginTop: 20 }} maxWidth={'md'}>
                     <DragDropList
                         items={this.state.items}
-                        onDragEnd={this.onDragEnd}
-                        onDialogOpen={this.onDialogOpen}
-                        onItemToggle={handleToggle}
-                        onItemRemove={handleRemove}
+                        onDragEnd={this.handleDragEnd}
+                        onDialogOpen={() => this.setState({ open: true })}
+                        handleToggle={handleToggle}
+                        handleRemove={handleRemove}
                     />
                 </Container>
             </div>

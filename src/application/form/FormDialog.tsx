@@ -28,18 +28,18 @@ export default function FormDialog(Props: IDialogProps): JSX.Element {
     const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         switch (e.target.name) {
         case 'name':
-            Props.form.name = e.target.value;
+            Props.formData.name = e.target.value;
             break;
         case 'amount':
-            Props.form.amount = parseInt(e.target.value);
+            Props.formData.amount = parseInt(e.target.value);
             break;
         }
     };
 
     const onSubmit = (): void => {
-        Props.handler({
-            name: Props.form.name,
-            amount: Props.form.amount,
+        Props.handleAddition({
+            name: Props.formData.name,
+            amount: Props.formData.amount,
             checked: false
         });
     };

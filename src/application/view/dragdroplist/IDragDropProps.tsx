@@ -3,8 +3,8 @@ import { IShopData } from '../../../domain/IShopData';
 
 export interface IDragDropProps {
     onDragEnd(result: DropResult, provided: ResponderProvided): void;
-    onItemToggle(index: number): () => void;
-    onItemRemove(index: number): () => void;
+    handleToggle(index: number): () => void;
+    handleRemove(index: number): () => void;
     onDialogOpen(): void;
     items: IShopData[];
 }
